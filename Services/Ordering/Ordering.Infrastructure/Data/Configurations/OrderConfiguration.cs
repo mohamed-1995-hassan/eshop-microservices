@@ -70,6 +70,38 @@ namespace Ordering.Infrastructure.Data.Configurations
 				);
 
 			builder.ComplexProperty(
+				o => o.BillingAddress, addressBuilder =>
+				{
+					addressBuilder.Property(n => n.FirstName)
+								  .HasMaxLength(50)
+								  .IsRequired();
+
+					addressBuilder.Property(n => n.LastName)
+								  .HasMaxLength(50)
+								  .IsRequired();
+
+					addressBuilder.Property(n => n.EmailAddress)
+								  .HasMaxLength(50);
+
+					addressBuilder.Property(n => n.AddressLine)
+								  .HasMaxLength(180)
+								  .IsRequired();
+
+					addressBuilder.Property(n => n.Country)
+								  .HasMaxLength(50);
+
+					addressBuilder.Property(n => n.State)
+								  .HasMaxLength(50);
+
+					addressBuilder.Property(n => n.ZipCode)
+								  .HasMaxLength(5)
+								  .IsRequired();
+
+
+				}
+				);
+
+			builder.ComplexProperty(
 				o => o.Payment, paymentBuilder =>
 				{
 					paymentBuilder.Property(p => p.CartName)

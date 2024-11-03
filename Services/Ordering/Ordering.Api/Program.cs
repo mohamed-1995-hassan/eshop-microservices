@@ -1,6 +1,7 @@
 using Ordering.Api;
 using Ordering.Application;
 using Ordering.Infrastructure;
+using Ordering.Infrastructure.Data.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,11 @@ builder.Services.AddApplicationService()
 				.AddApiService();
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseApiServices();
+
+if (app.Environment.IsDevelopment())
+{
+	await app.IntializeDatabaseAsync();
+}
 
 app.Run();
