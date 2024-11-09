@@ -23,7 +23,7 @@ namespace BuildingBlocks.Behaviors
 			timer.Stop();
 			var timeTaken = timer.Elapsed;
 
-			if(timeTaken.Seconds > 3)
+			if(timeTaken.Seconds > 50)
 			{
 				logger.LogWarning("[PERFORMANCE] The request {Request} took {TimeTaken}",
 					typeof(TRequest).Name, timeTaken.Seconds);
