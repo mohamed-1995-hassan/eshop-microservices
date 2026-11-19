@@ -1,5 +1,4 @@
-@page
-@model Shopping.Web.Pages.CartModel
+@model ShoppingCartModel
 @{
     ViewData["Title"] = "Cart";
 }
@@ -9,7 +8,7 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Cart</li>
                 </ol>
             </nav>
@@ -33,8 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        @foreach (var cartItem in Model.Cart.Items)
+                        @foreach (var cartItem in Model.Items)
                         {
                             <tr>
                                 <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
@@ -43,12 +41,10 @@
                                 <td><input class="form-control" type="text" value="@cartItem.Quantity" /></td>
                                 <td class="text-right">@(cartItem.Price * cartItem.Quantity) $</td>
                                 <td class="text-right">
-
-                                    <form asp-page-handler="removetocart" method="post">
+                                    <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
                                         <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-                                        <input type="hidden" asp-for="@cartItem.ProductId" name="productId" />
+                                        <input type="hidden" name="productId" value="@cartItem.ProductId" />
                                     </form>
-
                                 </td>
                             </tr>
                         }
@@ -59,7 +55,7 @@
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>@Model.Cart.TotalPrice $</strong></td>
+                            <td class="text-right"><strong>@Model.TotalPrice $</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -67,13 +63,11 @@
         </div>
         <div class="col mb-2">
             <div class="row">
-                <div class="col-sm-12  col-md-6">
-                    @*<button class="btn btn-lg btn-block btn-danger">Continue Shopping</button>*@
-                    <a asp-page="Product" class="btn btn-lg btn-block btn-success">Continue Shopping</a>
+                <div class="col-sm-12 col-md-6">
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-lg btn-block btn-success">Continue Shopping</a>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    @*<button class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</button>*@
-                    <a asp-page="CheckOut" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a>
+                    <a asp-controller="Checkout" asp-action="Index" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a>
                 </div>
             </div>
         </div>

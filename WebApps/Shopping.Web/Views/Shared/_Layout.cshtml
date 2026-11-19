@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AspnetRunBasics</title>
+    <title>@ViewData["Title"] - EShop Microservices</title>
 
     <!-- CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">AspnetRunBasics</a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">EShop Microservices</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -25,19 +25,19 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/ProductList">Product</a>
+                            <a class="nav-link" asp-controller="Product" asp-action="Index">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Cart">Cart</a>
+                            <a class="nav-link" asp-controller="Cart" asp-action="Index">Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/OrderList">Order</a>
+                            <a class="nav-link" asp-controller="Order" asp-action="Index">Order</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Contact">Contact</a>
+                            <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
                         </li>
                     </ul>
 
@@ -50,7 +50,7 @@
                                 </button>
                             </div>
                         </div>
-                        <a class="btn btn-success btn-sm ml-3" asp-area="" asp-page="/Cart">
+                        <a class="btn btn-success btn-sm ml-3" asp-controller="Cart" asp-action="Index">
                             <i class="fa fa-shopping-cart"></i> Cart
                             <span class="badge badge-light">3</span>
                         </a>
@@ -77,7 +77,7 @@
                     <h5>About</h5>
                     <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
                     <p class="mb-0">
-                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
+                        EShop Microservices - A modern e-commerce platform built with ASP.NET Core microservices architecture.
                     </p>
                 </div>
 
@@ -117,7 +117,7 @@
                     <p class="float-left">
                         <a href="#">Back to top</a>
                     </p>
-                    <p class="text-right text-muted">created with <i class="fa fa-heart"></i> by <a href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>t-php</i></a> | <span>v. 1.0</span></p>
+                    <p class="text-right text-muted">EShop Microservices | <span>v. 1.0</span></p>
                 </div>
             </div>
         </div>
@@ -128,7 +128,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        //Plus & Minus for Quantity product
         $(document).ready(function () {
             var quantity = 1;
 
@@ -145,18 +144,12 @@
                     $('#quantity').val(quantity - 1);
                 }
             });
-
         });
 
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
             'use strict';
-
             window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
-
-                // Loop over them and prevent submission
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
@@ -168,9 +161,8 @@
                 });
             }, false);
         })();
-
     </script>
 
-    @RenderSection("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

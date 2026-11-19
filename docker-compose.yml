@@ -148,10 +148,11 @@ services:
 
   # Web Application
   shopping.web:
-    image: ${DOCKER_REGISTRY-}shoppingweb
-    build:
-      context: .
-      dockerfile: WebApps/Shopping.Web/Dockerfile
+    image: shoppingweb:latest
+    container_name: shopping.web
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080

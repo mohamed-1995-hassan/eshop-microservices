@@ -1,7 +1,6 @@
-@page
-@model Shopping.Web.Pages.ProductDetailModel
+@model ProductModel
 @{
-    ViewData["Title"] = "ProductDetail";
+    ViewData["Title"] = "Product Detail";
 }
 
 <div class="container">
@@ -9,9 +8,9 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
-                    <li class="breadcrumb-item"><a asp-page="Product">Product</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">@Model.Product.Name</li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">Product</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
                 </ol>
             </nav>
         </div>
@@ -25,8 +24,8 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <a href="" data-toggle="modal" data-target="#productModal">
-                        <img class="img-fluid" src="~/images/product/@Model.Product.ImageFile.Replace('-','x')" />
-                        <p class="text-center">@Model.Product.Name</p>
+                        <img class="img-fluid" src="~/images/product/@Model.ImageFile.Replace('-','x')" />
+                        <p class="text-center">@Model.Name</p>
                     </a>
                 </div>
             </div>
@@ -36,13 +35,13 @@
         <div class="col-12 col-lg-6 add_to_cart_block">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <p class="price">@Model.Product.Price $</p>
-                    <p class="price_discounted">@(Model.Product.Price + 120) $</p>
-                    <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
+                    <p class="price">@Model.Price $</p>
+                    <p class="price_discounted">@(Model.Price + 120) $</p>
+                    <form asp-controller="Product" asp-action="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
                         <div class="form-group">
                             <label for="colors">Color</label>
-                            <select asp-for="Color" class="custom-select" id="colors">
-                                <option selected>Black</option>
+                            <select name="color" class="custom-select" id="colors">
+                                <option selected value="Black">Black</option>
                                 <option value="Blue">Blue</option>
                                 <option value="Red">Red</option>
                                 <option value="Green">Green</option>
@@ -56,7 +55,7 @@
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input asp-for="Quantity" type="text" class="form-control" id="quantity" name="quantity" min="1" max="100" value="1">
+                                <input name="quantity" type="text" class="form-control" id="quantity" min="1" max="100" value="1">
                                 <div class="input-group-append">
                                     <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
                                         <i class="fa fa-plus"></i>
@@ -64,10 +63,10 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-lg btn-block text-uppercase">
+                        <button type="submit" class="btn btn-success btn-lg btn-block text-uppercase">
                             <i class="fa fa-shopping-cart"></i> Add To Cart
-                        </a>
-                        <input type="hidden" asp-for="@Model.Product.Id" name="productId" />
+                        </button>
+                        <input type="hidden" name="productId" value="@Model.Id" />
                     </form>
                     <div class="product_rassurance">
                         <ul class="list-inline">
@@ -101,14 +100,13 @@
                 <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-align-justify"></i> Description</div>
                 <div class="card-body">
                     <p class="card-text">
-                        @Model.Product.Description
+                        @Model.Description
                     </p>
                     <p class="card-text">
-                        @Model.Product.Description
+                        @Model.Description
                     </p>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

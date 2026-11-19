@@ -28,7 +28,7 @@ namespace Catalog.Api.Data
 				{
 					"Smart Phone"
 				},
-				ImageFile = "Product-1.png"
+				ImageFile = "product-1.png"
 			},
 			new Product
 			{
@@ -40,7 +40,7 @@ namespace Catalog.Api.Data
 				{
 					"Carleto"
 				},
-				ImageFile = "Product-10.png"
+				ImageFile = "product-2.png"
 			},
 		};
 	}
