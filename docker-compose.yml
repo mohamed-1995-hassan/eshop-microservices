@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_catalog:/var/lib/postgresql/data/
+    networks:
+      - db-network
 
   basketdb:
     image: postgres:16
@@ -25,6 +27,8 @@ services:
       - "5433:5432"
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
+    networks:
+      - db-network
 
   orderdb:
     image: mcr.microsoft.com/mssql/server
@@ -35,6 +39,8 @@ services:
     restart: always
     ports:
       - "1433:1433"
+    networks:
+      - db-network
 
   # Cache
   distributedcache:
@@ -43,6 +49,8 @@ services:
     restart: always
     ports:
       - "6379:6379"
+    networks:
+      - cache-network
 
   # Message Broker
   messagebroker:
@@ -56,6 +64,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - messaging-network
 
   # Microservices
   catalog.api:
@@ -72,6 +82,9 @@ services:
       - catalogdb
     ports:
       - "6000:8080"
+    networks:
+      - db-network
+      - services-network
 
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
@@ -95,6 +108,11 @@ services:
       - messagebroker
     ports:
       - "6001:8080"
+    networks:
+      - db-network
+      - cache-network
+      - messaging-network
+      - services-network
 
   discount.grpc:
     image: ${DOCKER_REGISTRY-}discountgrpc
@@ -108,6 +126,8 @@ services:
       - ConnectionStrings__Database=Data Source=discountdb
     ports:
       - "6002:8080"
+    networks:
+      - services-network
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
@@ -128,6 +148,10 @@ services:
       - messagebroker
     ports:
       - "6003:8080"
+    networks:
+      - db-network
+      - messaging-network
+      - services-network
 
   # API Gateway
   yarpapigateway:
@@ -145,6 +169,9 @@ services:
       - ordering.api
     ports:
       - "6004:8080"
+    networks:
+      - services-network
+      - frontend-network
 
   # Web Application
   shopping.web:
@@ -162,7 +189,26 @@ services:
       - yarpapigateway
     ports:
       - "6005:8080"
+    networks:
+      - frontend-network
 
 volumes:
   postgres_catalog:
   postgres_basket:
+
+networks:
+  db-network:
+    driver: bridge
+    name: eshop-db-network
+  cache-network:
+    driver: bridge
+    name: eshop-cache-network
+  messaging-network:
+    driver: bridge
+    name: eshop-messaging-network
+  services-network:
+    driver: bridge
+    name: eshop-services-network
+  frontend-network:
+    driver: bridge
+    name: eshop-frontend-network
